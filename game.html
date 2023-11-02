@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Eternal Shadows</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+</head>
+  <body id="gameBody">
+
+    <div class="mid"><div id="mainCont"><p>You wake up in a dimly lit, unfamiliar house. Your heart races as you realize you're not alone. The sound of heavy, labored breathing fills the air. You were captured by a cult, and you must find a way to escape.</p>
+    <button onclick="exploreHouse()" class="one">Explore the house</button></div></div>
+    <script>
+      let flashlight = false;
+      let diary = false;
+      let key = false;
+      let unlockedDoor = false;
+      let windowBroken = false;
+      let rope = false;
+      let hallwayExplored = false;
+      let kitchenExplored = false;
+      let studyExplored = false;
+      let hasKnife = false
+      let copsCalled = false
+
+      function exploreHouse() {
+          if (!flashlight) {
+              document.getElementById("mainCont").innerHTML = "<p>The darkness is suffocating, and you can barely see. You need a source of light to explore further. You should find a flashlight first.</p>"
+              document.getElementById("mainCont").innerHTML += "<button onclick='findFlashlight()' class='one'>Search for a flashlight</button>"
+              document.getElementById("mainCont").innerHTML += "<button onclick='noFlashlight()' class='two'>No.</button>"
+          } else {
+            document.querySelector("#mainCont").style.background = 'url("https://th.bing.com/th/id/OIG.5Qd5zmVctAnucKlKfzeo?pid=ImgGn")';
+              document.getElementById("mainCont").innerHTML = "<p>You raise your flashlight and look for an exit. A door ahead appears unlocked, and there are also doors to a hallway, a kitchen, and a study.</p>"
+                document.getElementById("mainCont").innerHTML += "<button onclick='openUnlockedDoor()' class='one'>Open the door</button>"
+                document.getElementById("mainCont").innerHTML += "<button onclick='exploreHallway()' class='two'>Enter the hallway</button>"
+                document.getElementById("mainCont").innerHTML += "<button onclick='exploreKitchen()' class='three'>Enter the kitchen</button>"
+                document.getElementById("mainCont").innerHTML += "<button onclick='exploreStudy()' class='four'>Enter the study</button>"
+          }
+      }
+function noFlashlight() {
+  document.getElementById("mainCont").innerHTML = "(I'd find a flashlight if I were you)"
+  document.getElementById("mainCont").innerHTML += "<button onclick='findFlashlight()' class='one'>Search for a flashlight</button>"
+}
+      // Function to examine the bookshelf
+function examineBookshelf() {
+    document.getElementById("mainCont").innerHTML = "<p>You approach the strange bookshelf, lined with ancient tomes and occult symbols. One book stands out - 'The Book of Shadows.' Its pages are filled with forbidden knowledge.</p>"
+    document.getElementById("mainCont").innerHTML += "<p>Do you read from 'The Book of Shadows'? The words seem to call to you, promising answers to your situation.</p>"
+    document.getElementById("mainCont").innerHTML += "<button onclick='readFromBookOfShadows()' class='one'>Read from 'The Book of Shadows'</button>"
+    document.getElementById("mainCont").innerHTML += "<button onclick='openRightDoor()' class='two'>Leave the bookshelf</button>"
+}
+
+      // Function to read from 'The Book of Shadows'
+      function readFromBookOfShadows() {
+          document.getElementById("mainCont").innerHTML = "<p>You open 'The Book of Shadows' and start reading the forbidden incantations. The room grows colder, and strange symbols appear on the floor. You've awakened dark forces that were best left undisturbed.</p>"
+            document.getElementById('mainCont').style.background = "url('https://th.bing.com/th/id/OIG.4lr1z_0aiHRwfzypMZpu?pid=ImgGn&w=1024&h=1024&rs=1')"
+              document.getElementById("mainCont").innerHTML += "<p>The malevolent spirits manifest, and their presence consumes you. You've delved too deep into the unknown, and there's no turning back.</p>"
+            document.getElementById("mainCont").innerHTML += ("<button onclick='restartGame()' class='one'>Restart</button>")
+      }
+
+      // Function to explore the kitchen
+function exploreKitchen() {
+        document.getElementById("mainCont").innerHTML = "<p>You enter a dimly lit kitchen. The air is heavy with the scent of decay. There's an old, rusted knife on the table, a pantry, and a window that looks out into the forest.</p>"
+        document.getElementById("mainCont").innerHTML += "<button onclick='examinePantry()' class='one'>Examine the pantry</button>"
+        document.getElementById("mainCont").innerHTML += "<button onclick='lookOutWindow()' class='two'>Look out the window</button>"
+        document.getElementById("mainCont").innerHTML += "<button onclick='exploreHouse()' class='three'>Go back</button>"
+      if (!hasKnife) {
+       return document.getElementById("mainCont").innerHTML += "<button onclick='takeKnife()' class='four'>Take the knife</button>"
+      }
+    }
+
+      // Function to take the knife
+      function takeKnife() {
+          document.getElementById("mainCont").innerHTML = "<p>You pick up the old, rusted knife, your only form of defense. Its blade is stained with a dark substance. It feels heavy and cold in your hand.</p>"
+        hasKnife = true
+              document.getElementById("mainCont").innerHTML += "<button onclick='exploreKitchen()' class='one'>Return</button>"
+      }
+
+      // Function to examine the pantry
+function examinePantry() {
+  if (!hasKnife){
+    document.getElementById("mainCont").innerHTML = "<p>The Pantry is locked by ropes. Find something sharp to cut it open.</p>"
+    document.getElementById("mainCont").innerHTML += "<button onclick='exploreKitchen()' class='one'>Leave the pantry</button>"
+  } else {
+    document.getElementById("mainCont").innerHTML = "<p>You slash the ropes and open the pantry. To your surprise, you find a cell phone. You decide to call 911.</p>"
+    document.getElementById("mainCont").innerHTML += "<button onclick='exploreKitchen()' class='two'>Leave the pantry</button>"
+    copsCalled = true
+  }
+}
+      // Function to look out the window
+      function lookOutWindow() {
+        if (!copsCalled) {
+          document.getElementById("mainCont").innerHTML = "<p>You peer out the window and see the moonlight casting eerie shadows in the forest. There's movement in the underbrush, and you catch a glimpse of a dark figures. </p>"
+              document.getElementById("mainCont").innerHTML += "<button onclick='exploreKitchen()' class='one'>Leave the window</button>"
+        } else {
+          document.getElementById("mainCont").innerHTML = "<p>You peer out the window and see flashes of red and blue. Your heart leaps with joy as you realize that help has finally arrived. You break the window and leap down.</p>"
+          document.getElementById("mainCont").innerHTML += "<p>Unfortunately, as you run towards the cops, you wave your knife around like an idiot and you get shot on the spot.</p>"
+          document.getElementById('mainCont').style.background = "url('https://th.bing.com/th/id/OIG.4lr1z_0aiHRwfzypMZpu?pid=ImgGn&w=1024&h=1024&rs=1')"
+          document.getElementById("mainCont").innerHTML += ("<button onclick='restartGame()' class='one'>Restart</button>")
+        }
+      }
+
+
+      // Function to open the unlocked door and escape
+      function openUnlockedDoor() {
+        document.getElementById('mainCont').style.background = "url('https://th.bing.com/th/id/OIG.wJXZmmqo6iyxdNdyfgDJ?pid=ImgGn&w=1024&h=1024&rs=1')"
+          if (!unlockedDoor) {
+              document.getElementById("mainCont").innerHTML = "<p>The door swings open, revealing a moonlit forest. The air is frigid, and you can hear the distant sounds of wildlife. You hear shouts and footsteps, and your heart races.</p>"
+              unlockedDoor = true;
+                  document.getElementById("mainCont").innerHTML += "<button onclick='exploreForest()' class='one'>Enter the forest</button>"
+                getElementById("mainCont").innerHTML += "<button onclick='exploreHouse()' class='two'>Stay inside</button>"
+          } else {
+              document.getElementById("mainCont").innerHTML += "<p>You step outside again, but the threat remains. The forest looms before you, shrouded in darkness.</p>"
+              document.getElementById("mainCont").innerHTML += "<button onclick='exploreForest()' class='one'>Enter the forest</button>"
+              document.getElementById("mainCont").innerHTML += "<button onclick='exploreHouse()' class='two'>Stay inside</button>"
+          }
+      }
+
+      // Function to explore the forest
+function exploreForest() {
+    document.getElementById("mainCont").innerHTML = "<p>You venture into the forest, the trees casting eerie shadows. The sounds of the cult members grow closer, and your fear intensifies.</p>"
+    document.getElementById("mainCont").innerHTML += "<p>As you navigate through the tangled underbrush, you come across an old, abandoned well. It's a desperate moment. Do you take the risk and hide inside?</p>"
+    document.getElementById("mainCont").innerHTML += "<button onclick='hideInWell()' class='one'>Hide in the well</button>"
+    document.getElementById("mainCont").innerHTML += "<button onclick='continueExploring()' class='two'>Keep moving</button>"
+  if (hasKnife) {
+    document.getElementById("mainCont").innerHTML += "<button onclick='confrontMembers()' class='three'>Confront the Members</button>"
+  }
+}
+function confrontMembers() {
+  document.getElementById("mainCont").style.backgroundRepeat = "no-repeat"
+  document.getElementById("mainCont").style.backgroundPosition = "center"
+  document.getElementById("mainCont").style.background = "url('https://th.bing.com/th/id/OIG.wgSd_5UVBSziAXc8Fclq?pid=ImgGn')"
+  document.getElementById("mainCont").innerHTML = "<p>You see a group of people approach. With your then years of martial arts training and the help of the knife, you were able to defeat the members and escape the cult's territory.</p>"
+  document.getElementById("mainCont").innerHTML += "<p>You Win!</p>"
+  document.getElementById("mainCont").innerHTML += ("<button onclick='restartGame()' class='one'>Restart</button>")
+}
+      // Function to hide in the well
+      function hideInWell() {
+          document.getElementById("mainCont").style.backgroundImage = "url('https://vignette.wikia.nocookie.net/marvelcinematicuniverse/images/9/9e/The_Well.png/revision/latest?cb=20141119044307')"
+          document.getElementById("mainCont").innerHTML = "<p>You lower yourself into the well, trembling with fear. The darkness is all-encompassing, and you can hear footsteps above, searching for you.</p>"
+          setTimeout(function () {
+              document.getElementById("mainCont").innerHTML += "<p>It's a tense, silent wait. You hope the cult members will pass by. Seconds feel like hours, and then a member peers into the well.</p>"
+              setTimeout(function () {
+                document.getElementById('mainCont').style.background = "url('https://th.bing.com/th/id/OIG.4lr1z_0aiHRwfzypMZpu?pid=ImgGn&w=1024&h=1024&rs=1')"
+                document.getElementById("mainCont").innerHTML += "<p>Your eyes meet, and it's the last thing you see. His hands reach for you, and darkness descends...</p>"
+                document.getElementById("mainCont").innerHTML += ("<button onclick='restartGame()' class='one'>Restart</button>")
+              }, 5000);
+          }, 5000);
+      }
+
+      // Function to continue exploring the forest
+      function continueExploring() {
+        document.getElementById("mainCont").style.backgroundImage = "url('https://th.bing.com/th/id/R.3a890594369381f7db80845b3042dd4c?rik=mJ6IMeV2jXza7Q&pid=ImgRaw&r=0')"
+          document.getElementById("mainCont").innerHTML = "<p>You press on through the forest, trying to distance yourself from the pursuing cult members. Your heart pounds, and your flashlight's feeble beam reveals twisted branches and eerie shadows.</p>"
+          setTimeout(function () {
+              document.getElementById("mainCont").innerHTML += "<p>But escape remains elusive. The forest is vast, and you can't shake the feeling that they are drawing closer...</p>"
+              setTimeout(function () {
+                document.getElementById('mainCont').style.background = "url('https://th.bing.com/th/id/OIG.4lr1z_0aiHRwfzypMZpu?pid=ImgGn&w=1024&h=1024&rs=1')"
+                document.getElementById("mainCont").innerHTML += "<p>Your fear is realized when a hand clamps down on your shoulder, and you are dragged into the darkness.</p>"
+                document.getElementById("mainCont").innerHTML += ("<button onclick='restartGame()' class='one'>Restart</button>")
+              }, 4000);
+          }, 4000);
+      }
+
+      // Function to find the flashlight
+      function findFlashlight() {
+          flashlight = true;
+          document.getElementById("mainCont").innerHTML = "<p>You search a nearby room and discover a dusty flashlight. It's your only source of light, your only hope.</p>"
+              document.getElementById("mainCont").innerHTML += "<button onclick='exploreHouse()' class='one'>Continue exploring</button>"
+      }
+
+      // Function to continue exploring the hallway
+      function exploreHallway() {
+        document.getElementById("mainCont").style.background = "url('https://th.bing.com/th/id/OIG.JhA5dp2ITSHXds9Ibs0k?pid=ImgGn&w=1024&h=1024&rs=1')"
+        if (!hallwayExplored) {
+            document.getElementById("mainCont").innerHTML = "<p>You step into a dimly lit hallway. The walls are adorned with old, tattered paintings, and the air is heavy with history. There are doors to the left and right, each one leading to the unknown.</p>";
+                document.getElementById("mainCont").innerHTML += "<button onclick='openLeftDoor()' class='one'>Open the left door</button>";
+                document.getElementById("mainCont").innerHTML += "<button onclick='openRightDoor()' class='two'>Open the right door</button>";
+                document.getElementById("mainCont").innerHTML += "<button onclick='exploreHouse()' class='three'>Go back</button>";
+        }
+      }
+
+
+      // Function to open the left door
+      function openLeftDoor() {
+          document.getElementById("mainCont").style.background = "url('https://th.bing.com/th/id/OIG.BahcKeAFGqcMAvMWU5.U?pid=ImgGn')"
+          document.getElementById("mainCont").innerHTML = "<p>You open the left door to reveal a dark room with old, dusty furniture. Cobwebs hang from the ceiling, and a chill runs down your spine. There's a closet, an open window, and an old staircase leading down.</p>"
+              document.getElementById("mainCont").innerHTML += "<button onclick='searchCloset()' class='one'>Search the closet</button>"
+              document.getElementById("mainCont").innerHTML += "<button onclick='jumpOutWindow()' class='two'>Jump out the window</button>"
+              document.getElementById("mainCont").innerHTML += "<button onclick='descendStairs()' class='three'>Descend the stairs</button>"
+              document.getElementById("mainCont").innerHTML += "<button onclick='exploreHallway()' class='four'>Go back</button>"
+      }
+
+      // Function to open the right door
+      function openRightDoor() {
+        document.getElementById("mainCont").style.background = "url('https://th.bing.com/th/id/OIG.ynejzs7Sk9TjAlv6Mj19?pid=ImgGn&w=1024&h=1024&rs=1')"
+          document.getElementById("mainCont").innerHTML = "<p>You open the right door to a small, candlelit room. The walls are covered with strange symbols and eerie paintings. There's a mirror with a missing piece and a strange bookshelf.</p>"
+              document.getElementById("mainCont").innerHTML += "<button onclick='examineMirror()' class='one'>Examine the mirror</button>"
+              document.getElementById("mainCont").innerHTML += "<button onclick='examineBookshelf()' class='two'>Examine the bookshelf</button>"
+              document.getElementById("mainCont").innerHTML += "<button onclick='exploreHallway()' class='three'>Go back</button>"
+      }
+      function examineMirror() {
+        document.getElementById("mainCont").style.backgroundRepeat = "no-repeat"
+        document.getElementById("mainCont").style.backgroundSize = "cover"
+        document.getElementById("mainCont").style.backgroundPosition = "center"
+        document.getElementById("mainCont").style.backgroundImage = "url('https://th.bing.com/th/id/OIP.X21FDDeQqMAWwP41bCIl1AHaGl?pid=ImgDet&rs=1')"
+          document.getElementById("mainCont").innerHTML = "<p>You look at your reflection. Your self-esteem raises.</p>"
+        document.getElementById("mainCont").innerHTML += "<button onclick='openRightDoor()' class='one'>Return</button>"
+      }
+      // Function to search the closet
+      function searchCloset() {
+          document.getElementById("mainCont").innerHTML = "<p>You search the closet and find an old, dusty diary. Its pages are filled with cryptic writings, but you can't decipher its meaning.</p>"
+          diary = true;
+              document.getElementById("mainCont").innerHTML += "<button onclick='openLeftDoor()' class='one'>Go back</button>"
+      }
+
+      // Function to jump out of the window
+      function jumpOutWindow() {
+          if (diary) {
+              document.getElementById('mainCont').style.background = "url('https://th.bing.com/th/id/OIG.wJXZmmqo6iyxdNdyfgDJ?pid=ImgGn&w=1024&h=1024&rs=1')"
+              document.getElementById("mainCont").innerHTML = "<p>You leap out of the window, clutching the mysterious diary. The cold night air rushes past you as you fall to the ground. You hear people approaching, but you have a head start.</p>"
+                  document.getElementById("mainCont").innerHTML += "<button onclick='exploreForest()' class='one'>Enter the forest</button>"
+          } else {
+            document.getElementById('mainCont').style.background = "url('https://th.bing.com/th/id/OIG.4lr1z_0aiHRwfzypMZpu?pid=ImgGn&w=1024&h=1024&rs=1')"
+              document.getElementById("mainCont").innerHTML = "<p>You jump out of the window, but the fall is much higher than you expected. You land with a bone-jarring thud. The noise attracts nearby cult members.</p>"
+                  document.getElementById("mainCont").innerHTML += "<p>Your escape attempt ends in your capture...</p>"
+                  document.getElementById("mainCont").innerHTML += "<button onclick='restartGame()' class='one'>Restart</button>"
+          }
+      }
+
+      // Function to descend the stairs
+      function descendStairs() {
+          document.getElementById("mainCont").style.background = "url('https://th.bing.com/th/id/OIG.S1__it8xk30XTbRgpGAR?pid=ImgGn&w=1024&h=1024&rs=1')"
+          document.getElementById("mainCont").innerHTML = "<p>You cautiously descend the staircase, and it leads to a dark basement. The air is damp, and you can hear faint whispers. The basement seems to go on forever, and you feel trapped.</p>"
+              document.getElementById("mainCont").innerHTML += ("<p>In the distance, you see an eerie, flickering light. Do you investigate the light?</p>");
+                  document.getElementById("mainCont").innerHTML += ("<button onclick='investigateLight()' class='one'>Investigate the light</button>");
+                  document.getElementById("mainCont").innerHTML += ("<button onclick='returnUpLeftDoorStairs()' class='two'>Return upstairs</button>");
+      }
+
+      // Function to investigate the light in the basement
+      function investigateLight() {
+          document.getElementById("mainCont").style.background = "url('https://th.bing.com/th/id/OIG.LFFPHWBtY54m4b5k4WxA?pid=ImgGn&w=1024&h=1024&rs=1')"
+          document.getElementById("mainCont").innerHTML = ("<p>You move toward the flickering light and discover a room filled with old, dusty candles. The walls are covered with strange symbols, and an Ouiji board lies on the table</p>");
+              document.getElementById("mainCont").innerHTML += ("<p>Do you want to interact with it?</p>");
+                  document.getElementById("mainCont").innerHTML += ("<button onclick='interactOuiji()' class='one'>Interact with the Ouiji board</button>");
+                  document.getElementById("mainCont").innerHTML += ("<button onclick='returnUpLeftDoorStairs()' class='two'>Leave the room</button>");
+      }
+
+      function interactOuiji() {
+          document.getElementById("mainCont").innerHTML = ("<p>You put your hands on the board piece, and as you ask questions, an otherworldly presence fills the room. You have awakened something malevolent, and it consumes you.</p>");
+            document.getElementById("mainCont").style.background = "url('https://th.bing.com/th/id/OIG.4lr1z_0aiHRwfzypMZpu?pid=ImgGn&w=1024&h=1024&rs=1')"
+            document.getElementById("mainCont").innerHTML += ("<p>Your quest for escape ends in your own undoing.</p>");
+            document.getElementById("mainCont").innerHTML += ("<button onclick='restartGame()' class='one'>Restart</button>");
+      }
+
+
+      // Function to explore the study
+      function exploreStudy() {
+          document.getElementById("mainCont").style.background = "url('https://th.bing.com/th/id/OIG.xcMsqT0BjZU5cclI1Djt?pid=ImgGn&w=1024&h=1024&rs=1')"
+          if (!studyExplored) {
+              document.getElementById("mainCont").innerHTML = ("<p>You enter a dimly lit study. Shelves upon shelves of old, dusty books line the walls. A heavy, antique desk sits in the center of the room with an open journal on it.</p>");
+                  document.getElementById("mainCont").innerHTML += ("<button onclick='readJournal()' class='one'>Read the journal</button>");
+                  document.getElementById("mainCont").innerHTML += ("<button onclick='returnUpstairs()' class='two'>Leave the study</button>");
+              studyExplored = true;
+          } else {
+              document.getElementById("mainCont").innerHTML = ("<p>You are in the study, surrounded by the hushed whispers of the books. The journal remains open on the desk.</p>");
+                  document.getElementById("mainCont").innerHTML += ("<button onclick='readJournal()' class='one'>Read the journal</button>");
+                  document.getElementById("mainCont").innerHTML += ("<button onclick='returnUpstairs()' class='two'>Leave the study</button>");
+          }
+      }
+
+      // Function to read the journal in the study
+      function readJournal() {
+          document.getElementById("mainCont").innerHTML = ("<p>You flip through the journal's pages, and the words reveal a chilling truth. The house is cursed, and the spirits within are bound to it. The only way to escape their torment is to complete a dark ritual.</p>");
+          document.getElementById("mainCont").innerHTML += ("<button onclick='performRitual()' class='one'>Perform the ritual</button>");
+          document.getElementById("mainCont").innerHTML += ("<button onclick='returnUpstairs()' class='two'>Leave the journal</button>");
+      }
+
+      // Function for the game-ending scenario when the player performs the ritual
+      function performRitual() {
+          document.getElementById("mainCont").innerHTML = ("<p>You gather the required items and attempt the ritual, but the malevolent spirits within the house are not appeased. Their anger engulfs you, and your vision fades into darkness.</p>");
+              document.getElementById('mainCont').style.background = "url('https://th.bing.com/th/id/OIG.4lr1z_0aiHRwfzypMZpu?pid=ImgGn&w=1024&h=1024&rs=1')"
+              document.getElementById("mainCont").innerHTML += ("<p>Your desperate bid for freedom ends in despair...</p>");
+              document.getElementById("mainCont").innerHTML += ("<button onclick='restartGame()' class='one'>Restart</button>")
+      }
+
+      // Function to return upstairs from the basement
+      function returnUpstairs() {
+        document.querySelector("#mainCont").style.background = 'url("https://th.bing.com/th/id/OIG.5Qd5zmVctAnucKlKfzeo?pid=ImgGn")';
+          document.getElementById("mainCont").innerHTML = ("<p>You climb the stairs back to the ground floor, haunted by the unsettling discoveries below.</p>");
+          document.getElementById("mainCont").innerHTML += ("<p>The doors to the hallway, kitchen, and study await your next move.</p>");
+          document.getElementById("mainCont").innerHTML += ("<button onclick='exploreHallway()' class='one'>Enter the hallway</button>");
+          document.getElementById("mainCont").innerHTML += ("<button onclick='exploreKitchen()' class='two'>Enter the kitchen</button>");
+          document.getElementById("mainCont").innerHTML += ("<button onclick='exploreStudy()' class='three'>Enter the study</button>");
+          document.getElementById("mainCont").innerHTML += ("<button onclick='exploreHouse()' class='four'>Stay put</button>");
+      }
+      function returnUpLeftDoorStairs() {
+        document.getElementById("mainCont").style.background = "url('https://th.bing.com/th/id/OIG.BahcKeAFGqcMAvMWU5.U?pid=ImgGn')"
+          document.getElementById("mainCont").innerHTML = "<p>You climb the stairs, back to where you came from.</p>"
+            document.getElementById("mainCont").innerHTML += ("<p>The closet, window, and stairs await your next move.</p>");
+              document.getElementById("mainCont").innerHTML += "<button onclick='searchCloset()' class='one'>Search the closet</button>"
+              document.getElementById("mainCont").innerHTML += "<button onclick='jumpOutWindow()' class='two'>Jump out the window</button>"
+              document.getElementById("mainCont").innerHTML += "<button onclick='descendStairs()' class='three'>Descend the stairs</button>"
+              document.getElementById("mainCont").innerHTML += "<button onclick='exploreHallway()' class='four'>Go back</button>"
+      }
+      // Clear screen function
+      function clearScreen() {
+          document.body.innerHTML = '';
+      }
+      // Function to restart the game
+      function restartGame() {
+          clearScreen();
+          location.reload(); // Reload the page to restart the game
+      }
+    </script>
+
+  </body>
+</html>
